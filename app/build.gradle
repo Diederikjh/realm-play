@@ -1,6 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.5.21'
-    ext.realm_version = '10.10.0'
+    ext.kotlin_version = '1.6.10'
     repositories {
         jcenter()
         mavenCentral()
@@ -15,13 +14,9 @@ plugins {
     id 'com.android.application'
 }
 
-//apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-import io.realm.transformer.RealmTransformer
-android.registerTransform(new RealmTransformer(project))
-
+apply plugin: 'realm-android'
 
 android {
     compileSdk 31
@@ -48,15 +43,14 @@ android {
     }
 }
 
+realm {
+    syncEnabled = true
+}
+
 dependencies {
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-
-    api "io.realm:realm-annotations:$realm_version"
-    api "io.realm:realm-android-library:$realm_version"
-    api "io.realm:realm-android-kotlin-extensions:$realm_version"
-    annotationProcessor "io.realm:realm-annotations-processor:$realm_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
